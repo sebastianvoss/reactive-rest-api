@@ -23,9 +23,8 @@ object ReactiveRestApi extends App {
 
   val driver = new MongoDriver
   val connection = driver.connection(List("192.168.99.100"))
-  val db = connection("sample")
-  val users: BSONCollection = db("users")
-  val userRepository = UserRepository(users)
+
+  val userRepository = UserRepository(connection)
 
   val route: Route =
     get {
@@ -68,7 +67,7 @@ object ReactiveRestApi extends App {
   bindingFuture
     .flatMap(_.unbind()) // trigger unbinding from the port
     .onComplete(_ ⇒ {
-    system.terminate()
     driver.close()
+    system.terminate()
   })
 }
