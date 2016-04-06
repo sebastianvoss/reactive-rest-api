@@ -1,5 +1,11 @@
 package com.sebastianvoss.template.api
 
+import akka.http.scaladsl.model.{HttpEntity, HttpResponse}
+import akka.http.scaladsl.unmarshalling.{FromEntityUnmarshaller, FromResponseUnmarshaller}
+import akka.stream.Materializer
+
+import scala.concurrent.{Future, ExecutionContext}
+
 package object domain {
 
   import reactivemongo.bson.{BSONDocumentWriter, BSONDocument, BSONDocumentReader}
@@ -10,7 +16,7 @@ package object domain {
   implicit object UserReader extends BSONDocumentReader[User] {
     def read(doc: BSONDocument): User = {
       User(
-        doc.getAs[Long]("_id").get,
+        doc.getAs[String]("_id"),
         doc.getAs[String]("name").get
       )
     }
