@@ -13,7 +13,5 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-http-spray-json-experimental" % "2.4.3",
   "org.reactivemongo" %% "reactivemongo" % "0.11.10",
   "ch.qos.logback" % "logback-classic" % "1.1.7"
-
-
 )
     
